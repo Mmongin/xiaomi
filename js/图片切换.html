@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        img{
+            width: 500px;
+            margin: 20px;
+            padding: 10px;
+            background-color:cornflowerblue;
+            text-align: center;      
+        }
+
+        #outer{
+            text-align: center;
+        }
+        p{
+            margin-top: 20px;
+        }
+
+    </style>
+
+    <script>
+        window.onload = function(){
+            // 获取两个按钮
+            var prev = document.getElementById("prev");
+            var next = document.getElementById("next");
+
+            // 要切换图片就是要修改img标签里面的src属性
+
+            // 获取img标签
+            var img = document.getElementsByTagName("img")[0];
+
+            // 创建一个数组存放图片
+            var imgArr = ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/5.jpg"];
+
+            // 创建一个变量，来保存当前显示图片的索引
+            var index = 0;
+
+            // 获取id为info的p元素
+            var info = document.getElementById("info"); 
+            // 设置文本信息
+            info.innerHTML = "一共"+imgArr.length+"张图片，当前是第"+(index+1)+"张";
+            // 分别为两个按钮绑定单击函数
+            prev.onclick = function(){
+                index--;
+                if(index<0){
+                    
+                    index = imgArr.length-1;
+                }
+                img.src = imgArr[index];
+
+                // 当点击按钮后，重新设置信息
+                info.innerHTML = "一共"+imgArr.length+"张图片，当前是第"+(index+1)+"张";
+            };
+
+            next.onclick = function(){ 
+                index++;
+                if(index>imgArr.length-1){
+                    index = 0;
+                }
+                img.src = imgArr[index];
+
+                 // 当点击按钮后，重新设置信息
+                 info.innerHTML = "一共"+imgArr.length+"张图片，当前是第"+(index+1)+"张";
+            };
+        }
+    </script>
+</head>
+<body>
+    
+    <div id="outer">
+        <p id="info"></p>
+        
+        <img src="./img/1.jpg" alt="冰棍">
+
+        <br>
+        <button id="prev">< 上一张</button>
+        <button id="next">下一张 ></button>
+    </div>
+</body>
+</html>

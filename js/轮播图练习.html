@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 设置outer */
+        #outer{
+            width: 540px;
+            height: 370px;
+            margin: 50px auto;
+            background-color: cornflowerblue;
+            /* padding: 10px 0; */
+            position: relative;
+            overflow: hidden;
+        }
+        img{
+            float: left;
+            width: 520px;
+            margin: 10px;
+
+        }
+        #imgList{
+            list-style: none;
+            /* width: 2700px;  */
+            position: absolute;
+            /* left:-540px */
+        }
+
+        #imgList li{
+            float: left;
+        }
+
+        #navDiv{
+            position: absolute;
+            bottom: 15px;
+            /* 540+25*5 = 395 */
+            /* left: 200px; */
+        }
+
+        #navDiv a{
+            float: left;
+            width: 15px;
+            height: 15px;
+            background-color: red;
+            margin: 0 5px;
+            opacity: 0.5;
+            /* 兼容IE8透明 */
+            /* filter: alpha(opacity:50); */
+        }
+
+        #navDiv a:hover{
+            background-color:black;
+        }
+    </style>
+    
+    <script>
+        window.onload = function(){
+        var imgList = document.getElementById("imgList");
+        var imgArr = document.getElementsByTagName("img");
+        imgList.style.width = 540 * imgArr.length +"px";
+
+        // 设置导航按钮
+        var navDiv = document.getElementById("navDiv");
+        var outer = document.getElementById("outer");
+        navDiv.style.left = (outer.offsetWidth - navDiv.offsetWidth)/2 +"px";
+        
+        var index = 0;
+        var allA = document.getElementsByTagName("a");
+        allA[index].style.backgroundColor="black";
+
+        // 点击小方块转到指定图片
+        for(var i = 0 ; i<allA.length ; i++){
+
+            // 为每一个超链接都添加一个num属性
+            allA[i].num = i;
+            allA[i].onclick = function(){
+
+            // 获取点击超链接的索引，并将其设置为index
+            index = this.num;
+
+            imgList.style.left = -540 * index +"px";
+
+            setA();
+            
+            move(imgList,"left",-520*index,20,function(){
+
+            });
+            }
+        }
+ 
+            //  创建一个方法用来设置选中的a
+            function setA(){
+                // 遍历a，并将它们的背景颜色设置为红色
+                for(var i =0 ; i<allA.length; i++){
+                    allA[i].style.backgroundColor = "";
+                }
+
+                // 将选中的a设置为黑色
+                allA[index].style.backgroundColor = "black";
+            }
+
+            // 创建一个函数，用来开启自动切换图片
+            function autoChange(){
+                // 开启一个定时器，用来定时切换图片
+                setInterval(function(){
+
+                    // 索引自增
+                    index++;
+                    // 执行动画，切换图片
+                    move(imgList,"left",-520*index,20,)
+                },3000)
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- 创建一个外部的div,作为大的容器 -->
+    <div id="outer">
+        <!-- 创建一个ul，用于放照片 -->
+        <ul id="imgList">
+            <li><img src="./img/1.jpg" alt=""></li>
+            <li><img src="./img/2.jpg" alt=""></li>
+            <li><img src="./img/3.jpg" alt=""></li>
+            <li><img src="./img/4.jpg" alt=""></li>
+            <li><img src="./img/5.jpg" alt=""></li>
+        </ul>
+        <!-- 设置导航点 -->
+        <div id="navDiv">
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+        </div>
+    </div>
+</body>
+</html>
